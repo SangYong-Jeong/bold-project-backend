@@ -1,12 +1,11 @@
 const Router = require('koa-router');
 const package = new Router();
-const packageCtrl = require('./package-ctrl');
+const packageCtrl = require('./package.ctrl');
 
 package.get('/', packageCtrl.list);
 package.post('/', packageCtrl.write);
 package.get('/:id', packageCtrl.read);
 package.delete('/:id', packageCtrl.remove);
-package.put('/:id', packageCtrl.replace);
 package.patch('/:id', packageCtrl.update);
 
 module.exports = package;

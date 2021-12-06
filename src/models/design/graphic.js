@@ -15,7 +15,7 @@ const GraphicSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  src: [SrcSchema],
+  imgs: [SrcSchema],
 });
 
 const Graphic = mongoose.model('Graphic', GraphicSchema);

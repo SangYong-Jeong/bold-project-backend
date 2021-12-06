@@ -15,7 +15,7 @@ const PackageSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  src: [SrcSchema],
+  imgs: [SrcSchema],
 });
 
 const Package = mongoose.model('Package', PackageSchema);

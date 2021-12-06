@@ -15,7 +15,7 @@ const CharacterSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  src: [SrcSchema],
+  imgs: [SrcSchema],
 });
 
 const Character = mongoose.model('Character', CharacterSchema);

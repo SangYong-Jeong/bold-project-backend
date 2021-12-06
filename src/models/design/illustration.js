@@ -15,7 +15,7 @@ const IllustrationSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  src: [SrcSchema],
+  imgs: [SrcSchema],
 });
 
 const Illustration = mongoose.model('Illustration', IllustrationSchema);

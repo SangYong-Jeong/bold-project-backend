@@ -6,7 +6,6 @@ character.get('/', characterCtrl.list);
 character.post('/', characterCtrl.write);
 character.get('/:id', characterCtrl.read);
 character.delete('/:id', characterCtrl.remove);
-character.put('/:id', characterCtrl.replace);
 character.patch('/:id', characterCtrl.update);
 
 module.exports = character;

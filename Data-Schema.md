@@ -2,6 +2,8 @@
 
 ## Design Data Schema
 
+\*\* 각 portfolio마다 MongoDB에서 다른 Collection 쓰면 cate field 필요없음 ,but Portfolio라는 하나의 Collection에서 구분할 경우 cate field 넣고 쿼링 할 때 cate field로 구분해서 가져와야함
+
 1. design/character
 
 - 프로젝트 번호(number)
@@ -14,6 +16,7 @@
   rep: Boolean (각 분야별 대표이미지는 true)
   }
 - 작성일(publishedDate) - {type: Date, default: Date.now}
+- cate - { type: String, default: 'character' }
 
 1. design/graphic
 
@@ -27,6 +30,7 @@
   rep: Boolean (각 분야별 대표이미지는 true)
   }
 - 작성일(publishedDate) - {type: Date, default: Date.now}
+- cate - { type: String, default: 'graphic' }
 
 1. design/illustration
 
@@ -40,6 +44,7 @@
   rep: Boolean (각 분야별 대표이미지는 true)
   }
 - 작성일(publishedDate) - {type: Date, default: Date.now}
+- cate - { type: String, default: 'illustration' }
 
 1. design/package
 
@@ -53,3 +58,4 @@
   rep: Boolean (각 분야별 대표이미지는 true)
   }
 - 작성일(publishedDate) - {type: Date, default: Date.now}
+- cate - { type: String, default: 'package' }
