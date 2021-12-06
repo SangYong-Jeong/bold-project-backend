@@ -1,11 +1,17 @@
 const Router = require('koa-router');
-const graphic = new Router();
+const graphics = new Router();
 const graphicCtrl = require('./graphic.ctrl');
+const validationId = require('../../../middlewares/validation');
 
-graphic.get('/', graphicCtrl.list);
-graphic.post('/', graphicCtrl.write);
-graphic.get('/:id', graphicCtrl.read);
-graphic.delete('/:id', graphicCtrl.remove);
-graphic.patch('/:id', graphicCtrl.update);
+graphics.get('/', graphicCtrl.list);
+graphics.post('/', graphicCtrl.write);
 
-module.exports = graphic;
+const graphic = new Router();
+
+graphic.get('/', graphicCtrl.read);
+graphic.delete('/', graphicCtrl.remove);
+graphic.patch('/', graphicCtrl.update);
+
+graphics.use('/:id', validationId, graphic.routes());
+
+module.exports = graphics;

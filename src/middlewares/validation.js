@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { isValidObjectId } = mongoose;
 
-module.exports = async (ctx, next) => {
+module.exports = (ctx, next) => {
   const { id } = ctx.params;
   if (!isValidObjectId(id)) {
     ctx.status = 400;

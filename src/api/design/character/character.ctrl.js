@@ -1,27 +1,7 @@
 const Character = require('../../../models/design/character');
-const Joi = require('joi');
 
 // POST /api/design/character - CREATE
 exports.write = async (ctx) => {
-  const schema = Joi.object().keys({
-    title: Joi.string().required(),
-    content: Joi.string().required(),
-    imgs: Joi.array().items(
-      Joi.object({
-        id: Joi.number(),
-        src: Joi.string(),
-        rep: Joi.boolean(),
-      }),
-    ),
-  });
-
-  const result = schema.validate(ctx.request.body);
-  console.log(result);
-  if (result.error) {
-    ctx.status = 400;
-    ctx.body = result.error;
-    return;
-  }
   const { title, content, imgs, publishedDate } = ctx.request.body;
   const character = new Character({
     title,
