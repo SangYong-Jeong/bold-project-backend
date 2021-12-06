@@ -1,20 +1,12 @@
 const Router = require('koa-router');
 const illustration = new Router();
+const illustrationCtrl = require('./illustration.ctrl');
 
-const test = (ctx) => {
-  ctx.body = {
-    method: ctx.method,
-    path: ctx.path,
-    params: ctx.params,
-    body: ctx.request.body.title,
-  };
-};
-
-illustration.get('/', test);
-illustration.post('/', test);
-illustration.get('/:id', test);
-illustration.delete('/:id', test);
-illustration.put('/:id', test);
-illustration.patch('/:id', test);
+illustration.get('/', illustrationCtrl.list);
+illustration.post('/', illustrationCtrl.write);
+illustration.get('/:id', illustrationCtrl.read);
+illustration.delete('/:id', illustrationCtrl.remove);
+illustration.put('/:id', illustrationCtrl.replace);
+illustration.patch('/:id', illustrationCtrl.update);
 
 module.exports = illustration;
