@@ -6,6 +6,7 @@ const test = (ctx) => {
     method: ctx.method,
     path: ctx.path,
     params: ctx.params,
+    body: ctx.request.body.title,
   };
 };
 
