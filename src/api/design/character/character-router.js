@@ -1,11 +1,16 @@
 const Router = require('koa-router');
-const character = new Router();
+const characters = new Router();
 const characterCtrl = require('./character.ctrl');
+const validationId = require('../../../middlewares/validation');
 
-character.get('/', characterCtrl.list);
-character.post('/', characterCtrl.write);
-character.get('/:id', characterCtrl.read);
-character.delete('/:id', characterCtrl.remove);
-character.patch('/:id', characterCtrl.update);
+characters.get('/', characterCtrl.list);
+characters.post('/', characterCtrl.write);
 
-module.exports = character;
+const character = new Router();
+character.get('/', characterCtrl.read);
+character.delete('/', characterCtrl.remove);
+character.patch('/', characterCtrl.update);
+
+characters.use('/:id', validationId, character.routes());
+
+module.exports = characters;

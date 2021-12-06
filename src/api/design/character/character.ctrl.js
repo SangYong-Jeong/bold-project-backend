@@ -30,6 +30,7 @@ exports.list = async (ctx) => {
 
 // GET /api/design/character/:id - READ
 exports.read = async (ctx) => {
+  console.log('hi');
   const { id } = ctx.params;
   try {
     const character = await Character.findById(id).exec();
