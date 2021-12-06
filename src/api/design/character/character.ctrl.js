@@ -20,7 +20,10 @@ exports.write = async (ctx) => {
 // GET /api/design/character - READ
 exports.list = async (ctx) => {
   try {
-    const characters = await Character.find().exec();
+    const characters = await Character.find()
+      .sort({ _id: -1 })
+      .limit(10)
+      .exec();
     ctx.body = characters;
   } catch (err) {
     ctx.throw(500, err);

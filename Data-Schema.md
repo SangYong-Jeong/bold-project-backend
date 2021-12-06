@@ -55,3 +55,5 @@
   }
 - 작성일(publishedDate) - {type: Date, default: Date.now}
 - - cate - { type: String, default: 'package' }
+
+## sort 내림차순 + limit(한 번에 보여지는 갯수) -> 10개
