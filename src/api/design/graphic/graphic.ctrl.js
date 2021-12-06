@@ -2,9 +2,8 @@ const Graphic = require('../../../models/design/graphic');
 
 // POST /api/design/graphic - CREATE
 exports.write = async (ctx) => {
-  const { number, title, content, imgs, publishedDate } = ctx.request.body;
+  const { title, content, imgs, publishedDate } = ctx.request.body;
   const graphic = new Graphic({
-    number,
     title,
     content,
     imgs,

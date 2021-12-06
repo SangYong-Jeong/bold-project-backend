@@ -8,7 +8,6 @@ const SrcSchema = new Schema({
 });
 
 const IllustrationSchema = new Schema({
-  number: Number,
   title: String,
   content: String,
   publishedDate: {

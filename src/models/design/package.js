@@ -8,7 +8,6 @@ const SrcSchema = new Schema({
 });
 
 const PackageSchema = new Schema({
-  number: Number,
   title: String,
   content: String,
   publishedDate: {

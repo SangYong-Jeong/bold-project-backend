@@ -2,9 +2,8 @@ const Package = require('../../../models/design/character');
 
 // POST /api/design/character - CREATE
 exports.write = async (ctx) => {
-  const { number, title, content, imgs, publishedDate } = ctx.request.body;
+  const { title, content, imgs, publishedDate } = ctx.request.body;
   const package = new Package({
-    number,
     title,
     content,
     imgs,
