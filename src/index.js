@@ -1,16 +1,12 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 
+const api = require('./api');
+
 const app = new Koa();
 const router = new Router();
 
-router.get('/user', (ctx) => {
-  ctx.body = '유저';
-});
-
-router.get('/design', (ctx) => {
-  ctx.body = '디자인';
-});
+router.use('/api', api.routes());
 
 app.use(router.routes()).use(router.allowedMethods());
 
