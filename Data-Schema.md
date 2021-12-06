@@ -57,3 +57,8 @@
 - - cate - { type: String, default: 'package' }
 
 ## sort 내림차순 + limit(한 번에 보여지는 갯수) -> 10개
+
+### offset 기능은 mongoose에서 skip 메서드로 구현
+
+- -> skip의 파라미터는 ((page - 1) \* limit메서드의 파라미터)로 구현
+- 여기서 page는 쿼리값으로 받자 (option 값들은 query로 받는다.)
