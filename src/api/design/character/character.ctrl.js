@@ -1,6 +1,6 @@
-let postId = 1;
+let characterId = 1;
 
-const posts = [
+const characters = [
   {
     id: 1,
     title: '제목',
@@ -8,14 +8,87 @@ const posts = [
   },
 ];
 
-exports.write = (ctx) => {};
+// POST /api/design/character
+exports.write = (ctx) => {
+  const { title, body } = ctx.request.body;
+  characterId += 1;
+  const character = { id: characterId, title, body };
+  characters.push(character);
+  ctx.body = character;
+};
 
-exports.list = (ctx) => {};
+// GET /api/design/character
+exports.list = (ctx) => {
+  ctx.body = characters;
+};
 
-exports.read = (ctx) => {};
+// GET /api/design/character/:id
+exports.read = (ctx) => {
+  const { id } = ctx.params;
+  const character = characters.find((character) => character.id == id);
+  if (!character) {
+    ctx.status = 404;
+    ctx.body = {
+      message: '해당 일러스트레이션이 존재하지 않습니다.',
+    };
+    return;
+  }
+  ctx.body = character;
+};
 
-exports.remove = (ctx) => {};
+// DELETE /api/design/character/:id
+exports.remove = (ctx) => {
+  const { id } = ctx.params;
+  const index = characters.findIndex(
+    (character) => character.id.toString() === id,
+  );
+  if (index === -1) {
+    ctx.status = 404;
+    ctx.body = {
+      message: '해당 일러스트레이션이 존재하지 않습니다.',
+    };
+    return;
+  }
+  characters.splice(index, 1);
+  ctx.status = 204;
+};
 
-exports.replace = (ctx) => {};
+// PUT /api/design/character/:id
+exports.replace = (ctx) => {
+  const { id } = ctx.params;
+  const index = characters.findIndex(
+    (character) => character.id.toString() === id,
+  );
+  if (index === -1) {
+    ctx.status = 404;
+    ctx.body = {
+      message: '해당 일러스트레이션이 존재하지 않습니다.',
+    };
+    return;
+  }
+  characters[index] = {
+    id,
+    ...ctx.request.body,
+  };
+  ctx.body = characters[index];
+};
 
-exports.update = (ctx) => {};
+// PATCH /api/design/character/:id
+exports.update = (ctx) => {
+  const { id } = ctx.params;
+  const index = characters.findIndex(
+    (character) => character.id.toString() === id,
+  );
+  if (index === -1) {
+    ctx.status = 404;
+    ctx.body = {
+      message: '해당 일러스트레이션이 존재하지 않습니다.',
+    };
+    return;
+  }
+  characters[index] = {
+    ...characters[index],
+    ...ctx.request.body,
+  };
+  ctx.body = characters[index];
+};

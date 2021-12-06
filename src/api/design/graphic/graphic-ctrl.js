@@ -1,6 +1,6 @@
-let postId = 1;
+let graphicId = 1;
 
-const posts = [
+const graphics = [
   {
     id: 1,
     title: '제목',
@@ -8,14 +8,81 @@ const posts = [
   },
 ];
 
-exports.write = (ctx) => {};
+// POST /api/design/graphic
+exports.write = (ctx) => {
+  const { title, body } = ctx.request.body;
+  graphicId += 1;
+  const graphic = { id: graphicId, title, body };
+  graphics.push(graphic);
+  ctx.body = graphic;
+};
 
-exports.list = (ctx) => {};
+// GET /api/design/graphic
+exports.list = (ctx) => {
+  ctx.body = graphics;
+};
 
-exports.read = (ctx) => {};
+// GET /api/design/graphic/:id
+exports.read = (ctx) => {
+  const { id } = ctx.params;
+  const graphic = graphics.find((graphic) => graphic.id == id);
+  if (!graphic) {
+    ctx.status = 404;
+    ctx.body = {
+      message: '해당 일러스트레이션이 존재하지 않습니다.',
+    };
+    return;
+  }
+  ctx.body = graphic;
+};
 
-exports.remove = (ctx) => {};
+// DELETE /api/design/graphic/:id
+exports.remove = (ctx) => {
+  const { id } = ctx.params;
+  const index = graphics.findIndex((graphic) => graphic.id.toString() === id);
+  if (index === -1) {
+    ctx.status = 404;
+    ctx.body = {
+      message: '해당 일러스트레이션이 존재하지 않습니다.',
+    };
+    return;
+  }
+  graphics.splice(index, 1);
+  ctx.status = 204;
+};
 
-exports.replace = (ctx) => {};
+// PUT /api/design/graphic/:id
+exports.replace = (ctx) => {
+  const { id } = ctx.params;
+  const index = graphics.findIndex((graphic) => graphic.id.toString() === id);
+  if (index === -1) {
+    ctx.status = 404;
+    ctx.body = {
+      message: '해당 일러스트레이션이 존재하지 않습니다.',
+    };
+    return;
+  }
+  graphics[index] = {
+    id,
+    ...ctx.request.body,
+  };
+  ctx.body = graphics[index];
+};
 
-exports.update = (ctx) => {};
+// PATCH /api/design/graphic/:id
+exports.update = (ctx) => {
+  const { id } = ctx.params;
+  const index = graphics.findIndex((graphic) => graphic.id.toString() === id);
+  if (index === -1) {
+    ctx.status = 404;
+    ctx.body = {
+      message: '해당 일러스트레이션이 존재하지 않습니다.',
+    };
+    return;
+  }
+  graphics[index] = {
+    ...graphics[index],
+    ...ctx.request.body,
+  };
+  ctx.body = graphics[index];
+};
