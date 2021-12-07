@@ -15,6 +15,10 @@ const PackageSchema = new Schema({
     default: Date.now,
   },
   imgs: [SrcSchema],
+  user: {
+    _id: mongoose.Types.ObjectId,
+    userid: String,
+  },
 });
 
 const Package = mongoose.model('Package', PackageSchema);

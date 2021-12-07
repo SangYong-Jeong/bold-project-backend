@@ -15,6 +15,10 @@ const IllustrationSchema = new Schema({
     default: Date.now,
   },
   imgs: [SrcSchema],
+  user: {
+    _id: mongoose.Types.ObjectId,
+    userid: String,
+  },
 });
 
 const Illustration = mongoose.model('Illustration', IllustrationSchema);

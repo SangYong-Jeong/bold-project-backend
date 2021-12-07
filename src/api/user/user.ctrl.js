@@ -74,7 +74,10 @@ exports.login = async (ctx) => {
   }
 };
 
-exports.logout = async (ctx) => {};
+exports.logout = async (ctx) => {
+  ctx.cookies.set('access_token');
+  ctx.status = 204;
+};
 
 /* 
   GET /api/user/check

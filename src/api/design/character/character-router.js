@@ -4,14 +4,15 @@ const characterCtrl = require('./character.ctrl');
 const validationId = require('../../../middlewares/validation-design');
 const writeValidation = require('../../../middlewares/Joi-write-middleware');
 const updateValidation = require('../../../middlewares/Joi-update-middleware copy');
+const checkLoggedIn = require('../../../middlewares/checkLoggedIn');
 
 characters.get('/', characterCtrl.list);
-characters.post('/', writeValidation, characterCtrl.write);
+characters.post('/', checkLoggedIn, writeValidation, characterCtrl.write);
 
 const character = new Router();
 character.get('/', characterCtrl.read);
-character.delete('/', characterCtrl.remove);
-character.patch('/', updateValidation, characterCtrl.update);
+character.delete('/', checkLoggedIn, characterCtrl.remove);
+character.patch('/', checkLoggedIn, updateValidation, characterCtrl.update);
 
 characters.use('/:id', validationId, character.routes());
 

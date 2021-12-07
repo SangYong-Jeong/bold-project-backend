@@ -15,6 +15,10 @@ const GraphicSchema = new Schema({
     default: Date.now,
   },
   imgs: [SrcSchema],
+  user: {
+    _id: mongoose.Types.ObjectId,
+    userid: String,
+  },
 });
 
 const Graphic = mongoose.model('Graphic', GraphicSchema);
