@@ -29,17 +29,7 @@ exports.list = async (ctx) => {
 
 // GET /api/design/graphic/:id - READ
 exports.read = async (ctx) => {
-  const { id } = ctx.params;
-  try {
-    const graphic = await Graphic.findById(id).exec();
-    if (!graphic) {
-      ctx.status = 404;
-      return;
-    }
-    ctx.body = graphic;
-  } catch (err) {
-    ctx.throw(500, err);
-  }
+  ctx.body = ctx.state.post;
 };
 
 // DELETE /api/design/graphic/:id - REMOVE

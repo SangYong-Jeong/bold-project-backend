@@ -8,6 +8,7 @@ exports.write = async (ctx) => {
     content,
     imgs,
     publishedDate,
+    user: ctx.state.user,
   });
   try {
     await character.save();
@@ -18,6 +19,7 @@ exports.write = async (ctx) => {
 };
 
 // GET /api/design/character - READ
+// GET /api/design/character?userid=&rep=&page=
 exports.list = async (ctx) => {
   const page = parseInt(ctx.query.page || '1', 10);
 
@@ -25,7 +27,10 @@ exports.list = async (ctx) => {
     ctx.status = 400;
     return;
   }
-
+  // const { userid, rep } = ctx.query
+  // const query = {
+  //   ...(userid ? { 'user.userid' })
+  // }
   try {
     const characters = await Character.find()
       .sort({ _id: -1 })
@@ -42,17 +47,7 @@ exports.list = async (ctx) => {
 
 // GET /api/design/character/:id - READ
 exports.read = async (ctx) => {
-  const { id } = ctx.params;
-  try {
-    const character = await Character.findById(id).exec();
-    if (!character) {
-      ctx.status = 404;
-      return;
-    }
-    ctx.body = character;
-  } catch (err) {
-    ctx.throw(500, err);
-  }
+  ctx.body = ctx.state.post;
 };
 
 // DELETE /api/design/character/:id - REMOVE

@@ -29,17 +29,7 @@ exports.list = async (ctx) => {
 
 // GET /api/design/package/:id - READ
 exports.read = async (ctx) => {
-  const { id } = ctx.params;
-  try {
-    const package = await Package.findById(id).exec();
-    if (!package) {
-      ctx.status = 404;
-      return;
-    }
-    ctx.body = package;
-  } catch (err) {
-    ctx.throw(500, err);
-  }
+  ctx.body = ctx.state.post;
 };
 
 // DELETE /api/design/package/:id - REMOVE

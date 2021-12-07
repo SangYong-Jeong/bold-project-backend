@@ -45,7 +45,6 @@ exports.register = async (ctx) => {
 */
 exports.login = async (ctx) => {
   const { userid, password } = ctx.request.body;
-
   if (!userid || !password) {
     ctx.status = 401;
     return;

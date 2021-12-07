@@ -6,11 +6,12 @@ module.exports = async (ctx, next) => {
   if (!token) return next();
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
     ctx.state.user = {
       _id: decoded._id,
       userid: decoded.userid,
     };
-    console.log(decoded);
+
     const now = Math.floor(Date.now() / 1000);
     if (decoded.exp - now < 60 * 60 * 24 * 3.5) {
       const user = await User.findById(decoded._id);

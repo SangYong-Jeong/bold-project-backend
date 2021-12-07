@@ -29,17 +29,7 @@ exports.list = async (ctx) => {
 
 // GET /api/design/illustration/:id - READ
 exports.read = async (ctx) => {
-  const { id } = ctx.params;
-  try {
-    const illustration = await Illustration.findById(id).exec();
-    if (!illustration) {
-      ctx.status = 404;
-      return;
-    }
-    ctx.body = illustration;
-  } catch (err) {
-    ctx.throw(500, err);
-  }
+  ctx.body = ctx.state.post;
 };
 
 // DELETE /api/design/illustration/:id - REMOVE
