@@ -1,6 +1,6 @@
 # MongoDB에 들어갈 각 Data Schema
 
-## Design Data Schema
+## Design Data Schema - 스키마의 이름을 소문자로 바꾸고 뒤에 's'를 붙여 MongoDB의 Collection으로 등록
 
 \*\* 각 portfolio마다 MongoDB에서 다른 Collection 쓰면 cate field 필요없음 ,but Portfolio라는 하나의 Collection에서 구분할 경우 cate field 넣고 쿼링 할 때 cate field로 구분해서 가져와야함
 

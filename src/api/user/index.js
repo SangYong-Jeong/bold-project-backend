@@ -1,16 +1,14 @@
 const Router = require('koa-router');
+const userCtrl = require('./user.ctrl');
+
 const user = new Router();
 
-user.get('/login', (ctx) => {
-  ctx.body = 'login test';
-});
+user.post('/login', userCtrl.login);
 
-user.get('/logout', (ctx) => {
-  ctx.body = 'logout test';
-});
+user.post('/logout', userCtrl.logout);
 
-user.get('/join', (ctx) => {
-  ctx.body = 'join test';
-});
+user.post('/register', userCtrl.register);
+
+user.get('/check', userCtrl.check);
 
 module.exports = user;
