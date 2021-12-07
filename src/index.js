@@ -5,6 +5,7 @@ const bodyParser = require('koa-bodyparser');
 const mongooseInit = require('./modules/mongo-init');
 const { PORT, MONGO_URI } = process.env;
 const api = require('./api');
+const jwtMiddleware = require('./middlewares/jwt-middleware');
 
 const app = new Koa();
 const router = new Router();
@@ -16,9 +17,10 @@ mongooseInit(MONGO_URI);
 router.use('/api', api.routes());
 
 /* middleware */
-
 app.use(bodyParser());
+app.use(jwtMiddleware);
 
+/* router 적용 -> 이 부분을 거치지 않으면 위에 router가 작동하지 않는다. */
 app.use(router.routes()).use(router.allowedMethods());
 
 /* server init */

@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 const illustrations = new Router();
 const illustrationCtrl = require('./illustration.ctrl');
-const validationId = require('../../../middlewares/validation');
+const validationId = require('../../../middlewares/validation-design');
 const writeValidation = require('../../../middlewares/Joi-write-middleware');
 const updateValidation = require('../../../middlewares/Joi-update-middleware copy');
 
