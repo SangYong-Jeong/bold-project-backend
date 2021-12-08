@@ -1,16 +1,18 @@
 const Router = require('koa-router');
 const packages = new Router();
 const packageCtrl = require('./package.ctrl');
-const validationId = require('../../../middlewares/validation-design');
-const writeValidation = require('../../../middlewares/Joi-write-middleware');
-const updateValidation = require('../../../middlewares/Joi-update-middleware copy');
-const checkLoggedIn = require('../../../middlewares/checkLoggedIn');
-const validationPost = require('../../../middlewares/validation-post');
+const {
+  validationDesign,
+  JoiWriteMiddleware,
+  JoiUpdateMiddleware,
+  checkLoggedIn,
+  validationPost,
+  checkOwnPost,
+} = require('../../../middlewares');
 const Package = require('../../../models/design/package');
-const checkOwnPost = require('../../../middlewares/checkOwnPost');
 
 packages.get('/', packageCtrl.list);
-packages.post('/', checkLoggedIn, writeValidation, packageCtrl.write);
+packages.post('/', checkLoggedIn, JoiWriteMiddleware, packageCtrl.write);
 
 const package = new Router();
 
@@ -20,10 +22,15 @@ package.patch(
   '/:id',
   checkLoggedIn,
   checkOwnPost,
-  updateValidation,
+  JoiUpdateMiddleware,
   packageCtrl.update,
 );
 
-packages.use('/:id', validationId, validationPost(Package), package.routes());
+packages.use(
+  '/:id',
+  validationDesign,
+  validationPost(Package),
+  package.routes(),
+);
 
 module.exports = packages;

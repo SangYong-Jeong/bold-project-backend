@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const SrcSchema = new Schema({
-  id: Number,
+  id: mongoose.Types.ObjectId,
   src: String,
   rep: { type: Boolean, default: false },
 });

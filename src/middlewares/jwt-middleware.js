@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user/user');
 
-module.exports = async (ctx, next) => {
+const jwtMiddleware = async (ctx, next) => {
   const token = ctx.cookies.get('access_token');
   if (!token) return next();
   try {
@@ -27,3 +27,5 @@ module.exports = async (ctx, next) => {
     return next();
   }
 };
+
+module.exports = { jwtMiddleware };

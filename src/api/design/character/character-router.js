@@ -1,16 +1,18 @@
 const Router = require('koa-router');
 const characters = new Router();
 const characterCtrl = require('./character.ctrl');
-const validationId = require('../../../middlewares/validation-design');
-const writeValidation = require('../../../middlewares/Joi-write-middleware');
-const updateValidation = require('../../../middlewares/Joi-update-middleware copy');
-const checkLoggedIn = require('../../../middlewares/checkLoggedIn');
-const validationPost = require('../../../middlewares/validation-post');
+const {
+  validationDesign,
+  JoiWriteMiddleware,
+  JoiUpdateMiddleware,
+  checkLoggedIn,
+  validationPost,
+  checkOwnPost,
+} = require('../../../middlewares');
 const Character = require('../../../models/design/character');
-const checkOwnPost = require('../../../middlewares/checkOwnPost');
 
 characters.get('/', characterCtrl.list);
-characters.post('/', checkLoggedIn, writeValidation, characterCtrl.write);
+characters.post('/', checkLoggedIn, JoiWriteMiddleware, characterCtrl.write);
 
 const character = new Router();
 character.get('/', characterCtrl.read);
@@ -19,13 +21,13 @@ character.patch(
   '/',
   checkLoggedIn,
   checkOwnPost,
-  updateValidation,
+  JoiUpdateMiddleware,
   characterCtrl.update,
 );
 
 characters.use(
   '/:id',
-  validationId,
+  validationDesign,
   validationPost(Character),
   character.routes(),
 );

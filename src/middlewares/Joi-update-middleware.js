@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.exports = (ctx, next) => {
+const JoiUpdateMiddleware = (ctx, next) => {
   const schema = Joi.object().keys({
     title: Joi.string(),
     content: Joi.string(),
@@ -21,3 +21,5 @@ module.exports = (ctx, next) => {
   }
   return next();
 };
+
+module.exports = { JoiUpdateMiddleware };

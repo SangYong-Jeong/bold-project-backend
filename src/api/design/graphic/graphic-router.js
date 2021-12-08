@@ -1,16 +1,18 @@
 const Router = require('koa-router');
 const graphics = new Router();
 const graphicCtrl = require('./graphic.ctrl');
-const validationId = require('../../../middlewares/validation-design');
-const writeValidation = require('../../../middlewares/Joi-write-middleware');
-const updateValidation = require('../../../middlewares/Joi-update-middleware copy');
-const checkLoggedIn = require('../../../middlewares/checkLoggedIn');
-const validationPost = require('../../../middlewares/validation-post');
+const {
+  validationDesign,
+  JoiWriteMiddleware,
+  JoiUpdateMiddleware,
+  checkLoggedIn,
+  validationPost,
+  checkOwnPost,
+} = require('../../../middlewares');
 const Graphic = require('../../../models/design/graphic');
-const checkOwnPost = require('../../../middlewares/checkOwnPost');
 
 graphics.get('/', graphicCtrl.list);
-graphics.post('/', checkLoggedIn, writeValidation, graphicCtrl.write);
+graphics.post('/', checkLoggedIn, JoiWriteMiddleware, graphicCtrl.write);
 
 const graphic = new Router();
 
@@ -20,10 +22,15 @@ graphic.patch(
   '/',
   checkLoggedIn,
   checkOwnPost,
-  updateValidation,
+  JoiUpdateMiddleware,
   graphicCtrl.update,
 );
 
-graphics.use('/:id', validationId, validationPost(Graphic), graphic.routes());
+graphics.use(
+  '/:id',
+  validationDesign,
+  validationPost(Graphic),
+  graphic.routes(),
+);
 
 module.exports = graphics;

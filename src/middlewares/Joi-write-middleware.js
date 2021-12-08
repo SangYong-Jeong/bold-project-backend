@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.exports = (ctx, next) => {
+const JoiWriteMiddleware = (ctx, next) => {
   const schema = Joi.object().keys({
     title: Joi.string().required(),
     content: Joi.string().required(),
@@ -20,3 +20,5 @@ module.exports = (ctx, next) => {
   }
   return next();
 };
+
+module.exports = { JoiWriteMiddleware };

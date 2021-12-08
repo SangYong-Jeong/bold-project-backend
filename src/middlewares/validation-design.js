@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { isValidObjectId } = mongoose;
 
-module.exports = (ctx, next) => {
+const validationDesign = (ctx, next) => {
   const { id } = ctx.params;
   if (!isValidObjectId(id)) {
     ctx.status = 400;
@@ -16,3 +16,5 @@ module.exports = (ctx, next) => {
 // 다음 미들웨어가 동기적이라면 다음 미들웨어를 마친후 then절로 이후 작업 처리 가능 return or await 안 써도 됨
 
 // 다음 미들웨어가 비동기적이라면 (ex) - async / await 즉, Promise를 반환한다면 다음 미들웨어의 작업이 끝나기전에 해당 미들웨어에서 작업 처리
+
+module.exports = { validationDesign };

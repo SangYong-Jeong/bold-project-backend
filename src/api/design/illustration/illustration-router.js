@@ -1,16 +1,23 @@
 const Router = require('koa-router');
 const illustrations = new Router();
 const illustrationCtrl = require('./illustration.ctrl');
-const validationId = require('../../../middlewares/validation-design');
-const writeValidation = require('../../../middlewares/Joi-write-middleware');
-const updateValidation = require('../../../middlewares/Joi-update-middleware copy');
-const checkLoggedIn = require('../../../middlewares/checkLoggedIn');
-const validationPost = require('../../../middlewares/validation-post');
+const {
+  validationDesign,
+  JoiWriteMiddleware,
+  JoiUpdateMiddleware,
+  checkLoggedIn,
+  validationPost,
+  checkOwnPost,
+} = require('../../../middlewares');
 const Illustration = require('../../../models/design/illustration');
-const checkOwnPost = require('../../../middlewares/checkOwnPost');
 
 illustrations.get('/', illustrationCtrl.list);
-illustrations.post('/', checkLoggedIn, writeValidation, illustrationCtrl.write);
+illustrations.post(
+  '/',
+  checkLoggedIn,
+  JoiWriteMiddleware,
+  illustrationCtrl.write,
+);
 
 const illustration = new Router();
 
@@ -25,13 +32,13 @@ illustration.patch(
   '/:id',
   checkLoggedIn,
   checkOwnPost,
-  updateValidation,
+  JoiUpdateMiddleware,
   illustrationCtrl.update,
 );
 
 illustrations.use(
   '/:id',
-  validationId,
+  validationDesign,
   validationPost(Illustration),
   illustration.routes(),
 );

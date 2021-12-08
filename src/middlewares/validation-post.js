@@ -1,4 +1,4 @@
-module.exports = (Model) => async (ctx, next) => {
+const validationPost = (Model) => async (ctx, next) => {
   const { id } = ctx.params;
   try {
     const post = await Model.findById(id).exec();
@@ -12,3 +12,5 @@ module.exports = (Model) => async (ctx, next) => {
     ctx.throw(500, err);
   }
 };
+
+module.exports = { validationPost };

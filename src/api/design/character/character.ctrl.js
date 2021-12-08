@@ -19,7 +19,7 @@ exports.write = async (ctx) => {
 };
 
 // GET /api/design/character - READ
-// GET /api/design/character?userid=&rep=&page=
+// GET /api/design/character?rep=&page=
 exports.list = async (ctx) => {
   const page = parseInt(ctx.query.page || '1', 10);
 
@@ -27,19 +27,20 @@ exports.list = async (ctx) => {
     ctx.status = 400;
     return;
   }
-  // const { userid, rep } = ctx.query
-  // const query = {
-  //   ...(userid ? { 'user.userid' })
-  // }
   try {
     const characters = await Character.find()
       .sort({ _id: -1 })
       .limit(10)
       .skip((page - 1) * 10)
       .exec();
+
+    /* rep가 true인 img들을 갖고 있는 배열 리턴 */
+    // const [posts] = characters.map((v) => v.imgs);
+    // const repPosts = posts.filter((v) => v.rep);
+
     const charactersCounter = await Character.countDocuments().exec();
     ctx.set('Last-Page', Math.ceil(charactersCounter / 10));
-    ctx.body = characters;
+    ctx.body = characters; // 추후에 대표이미지 보낼때 추가할 부분
   } catch (err) {
     ctx.throw(500, err);
   }

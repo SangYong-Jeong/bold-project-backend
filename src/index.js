@@ -5,7 +5,7 @@ const bodyParser = require('koa-bodyparser');
 const mongooseInit = require('./modules/mongo-init');
 const { PORT, MONGO_URI } = process.env;
 const api = require('./api');
-const jwtMiddleware = require('./middlewares/jwt-middleware');
+const { jwtMiddleware } = require('./middlewares');
 
 const app = new Koa();
 const router = new Router();

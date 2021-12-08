@@ -1,4 +1,4 @@
-module.exports = (ctx, next) => {
+const checkOwnPost = (ctx, next) => {
   const { user, post } = ctx.state;
   if (post.user._id.toString() !== user._id) {
     ctx.status = 401;
@@ -6,3 +6,5 @@ module.exports = (ctx, next) => {
   }
   return next();
 };
+
+module.exports = { checkOwnPost };
