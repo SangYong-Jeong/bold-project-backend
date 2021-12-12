@@ -6,6 +6,7 @@ const mongooseInit = require('./modules/mongo-init');
 const { PORT, MONGO_URI } = process.env;
 const api = require('./api');
 const { jwtMiddleware } = require('./middlewares');
+const cors = require('@koa/cors');
 
 const app = new Koa();
 const router = new Router();
@@ -17,6 +18,7 @@ mongooseInit(MONGO_URI);
 router.use('/api', api.routes());
 
 /* middleware */
+app.use(cors({ credentials: true }));
 app.use(bodyParser());
 app.use(jwtMiddleware);
 
