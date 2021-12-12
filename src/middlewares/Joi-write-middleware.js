@@ -1,24 +1,18 @@
 const Joi = require('joi');
 
-const JoiWriteMiddleware = (ctx, next) => {
+const JoiWriteMiddleware = (_validation) => {
   const schema = Joi.object().keys({
     title: Joi.string().required(),
     content: Joi.string().required(),
     imgs: Joi.array().items(
-      Joi.object({
-        id: Joi.number(),
+      Joi.object().keys({
+        originalName: Joi.string(),
         src: Joi.string(),
         rep: Joi.boolean(),
       }),
     ),
   });
-  const result = schema.validate(ctx.request.body);
-  if (result.error) {
-    ctx.status = 400;
-    ctx.body = result.error;
-    return;
-  }
-  return next();
+  return schema.validate(_validation);
 };
 
 module.exports = { JoiWriteMiddleware };

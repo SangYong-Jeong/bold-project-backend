@@ -3,7 +3,6 @@ const characters = new Router();
 const characterCtrl = require('./character.ctrl');
 const {
   validationDesign,
-  JoiWriteMiddleware,
   JoiUpdateMiddleware,
   checkLoggedIn,
   validationPost,

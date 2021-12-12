@@ -1,25 +1,32 @@
 const Character = require('../../../models/design/character');
 const { relPath } = require('../../../lib/util');
+const { JoiWriteMiddleware } = require('../../../middlewares');
 
 // POST /api/design/character - CREATE
 exports.write = async (ctx) => {
-  console.log(ctx.request.body);
-  console.log(ctx.request.files);
   const { title, content, rep } = ctx.request.body;
   const imgs = ctx.request.files.map((file) => ({
     originalName: file.originalname,
     src: relPath(file.filename),
+    rep: rep,
   }));
-  // const imgs = [
-  //   { src: 'hi', rep: true },
-  //   { src: 'hi', rep: true },
-  // ];
+  const validation = { title, content, imgs };
+  const result = JoiWriteMiddleware(validation);
+  console.log(validation);
+  console.log(result.error);
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
+
   const character = new Character({
     title,
     content,
     imgs,
     user: ctx.state.user,
   });
+  console.log(character);
   try {
     await character.save();
     ctx.body = character;
