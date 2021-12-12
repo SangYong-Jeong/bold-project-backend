@@ -10,9 +10,10 @@ const {
   checkOwnPost,
 } = require('../../../middlewares');
 const Character = require('../../../models/design/character');
+const upload = require('../../../middlewares/multer-mw');
 
 characters.get('/', characterCtrl.list);
-characters.post('/', checkLoggedIn, JoiWriteMiddleware, characterCtrl.write);
+characters.post('/', checkLoggedIn, upload.array('imgs'), characterCtrl.write);
 
 const character = new Router();
 character.get('/', characterCtrl.read);

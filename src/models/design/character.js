@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const SrcSchema = new Schema({
   id: mongoose.Types.ObjectId,
+  originalName: String,
   src: String,
   rep: { type: Boolean, default: false },
 });

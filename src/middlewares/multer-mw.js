@@ -15,6 +15,7 @@ const destination = async (req, fiel, cb) => {
       moment().format('YYMMDD'),
     );
     await fs.ensureDir(folder);
+    cb(null, folder);
   } catch (err) {
     cb(err);
   }

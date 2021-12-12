@@ -1,13 +1,23 @@
 const Character = require('../../../models/design/character');
+const { relPath } = require('../../../lib/util');
 
 // POST /api/design/character - CREATE
 exports.write = async (ctx) => {
-  const { title, content, imgs, publishedDate } = ctx.request.body;
+  console.log(ctx.request.body);
+  console.log(ctx.request.files);
+  const { title, content, rep } = ctx.request.body;
+  const imgs = ctx.request.files.map((file) => ({
+    originalName: file.originalname,
+    src: relPath(file.filename),
+  }));
+  // const imgs = [
+  //   { src: 'hi', rep: true },
+  //   { src: 'hi', rep: true },
+  // ];
   const character = new Character({
     title,
     content,
     imgs,
-    publishedDate,
     user: ctx.state.user,
   });
   try {
