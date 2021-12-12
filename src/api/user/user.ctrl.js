@@ -68,13 +68,13 @@ exports.login = async (ctx) => {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
-    console.log('hi');
   } catch (err) {
     ctx.throw(500, err);
   }
 };
 
 exports.logout = async (ctx) => {
+  console.log('logout');
   ctx.cookies.set('access_token');
   ctx.status = 204;
 };
